@@ -1,0 +1,37 @@
+(Takes 3 required arguments:)
+(   Center X pos)
+(   Center Y pos)
+(   Diameter)
+
+(And one Optional argument)
+(   Federate, defaults to 25)
+
+(Example usage:)
+(   o<circle> call [x_pos] [y_pos] [dia] {[feed]})
+
+o<circle> sub
+  (put args into named parameters)
+  #<x_center> = #1
+  #<y_center> = #2
+  #<diameter> = #3
+  #<feedrate> = #4
+
+  (check if feedrate is 0, if not use default)
+  o10 if [[#<feedrate> EQ 0]]
+    #<feedrate> = 25
+    (debug, Using default feed: #<feedrate>)
+  o10 else
+    #<feedrate> = #4
+    (debug, Feed: #<feedrate>)
+  o10 endif
+
+  (calculate radius)
+  #<radius> = [#<diameter> / 2]
+
+  (debug, Circle center: X#1, Y#2)
+  (debug, Circle radius: #<radius>)
+
+  F#<feedrate>
+  G0 X[#<x_center> - #<radius>] Y[#2]
+  G2 X[#<x_center> - #<radius>] Y[#<y_center>] I[#<radius>] J0
+o<circle> endsub
