@@ -71,21 +71,19 @@ class SubCaller(QtWidgets.QMainWindow):
 
 
     def callSub(self):
-        # this method is called when the Call Sub button is clicked
 
-        # When we added the items to the combobox we set the data to
-        # the subname. We retrieve the subname of the currently selected
-        # item like this:
+        filename = self.subComboBox.currentText()
         subname = self.subComboBox.currentData()
 
-        # Our getArgs method returns a string of text with the argument
-        # from the input boxes.
-        #   Ex. "[1.24] [.002] [0]" ...
-        arg_str =  self.getArgs()
+        filepath = os.path.join(SUBROUTINE_PATH, filename)
+        with open(filepath, 'r') as fh:
+            line = fh.readline()
+            if line.startswith(';ARGS'):
+                args_format = line.strip(';ARGS').strip()
 
-        # This builds the actual command string to sent to the LinuxCNC MDI.
-        # The curly braces are replaced with the text passed to the format method
-        #   Ex: "o<probe> [1.24] [.002] [0]"
+        args =  self.getArgs()
+        arg_str = args_format.format(**args)
+
         cmd_str = "o<{}> call {}".format(subname, arg_str)
 
         # Print the command to the terminal so the user can see what is happening
@@ -99,52 +97,12 @@ class SubCaller(QtWidgets.QMainWindow):
 
 
     def getArgs(self):
-        # This method gets the input args form the input boxes and formats them
-        # into a string to use when calling the sub
-
-        # In the UI file I named the arg entries 'argEntry_1', 'argEntry_2' ...
-        # We could get the text entered in each of the entries like this:
-        #   arg_value = self.argEntry_1.text()
-
-        # but we would have to do that five times, once for each entry box
-        # I am lazy, so I chose to loop thru instead
-
-        # Define an empty list so hold the args
-        args = []
-
-        # Loop thru all the input boxes.
-        for arg_num in range(1, 5):
-
-            # We can use getattr to get an item from it's string name
-            entry = getattr(self, 'argEntry_{}'.format(arg_num))
-
-            # then get the text entered in the entry
-            arg_value = entry.text()
-
-            # if no text was entered in the entry, we want to ignore it.
-            # To so this we compare arg_value to an empty string the is-not-equal
-            # comparison (!=)
-            if arg_value != '':
-                # Since arg_value is not equal to an empty string, add it
-                # to the end of our list of arguments
-                # we also format it with surrounded by square brackets because
-                # that is the format args are passed to a sub with
-                args.append('[{}]'.format(arg_value))
-
-        # OK, at this point we have looped thru all the entry boxes and have
-        # a list of the args formated as strings. Assuming only the first three
-        # entries had anything in them it probably looks something like this:
-        #   ['[1.23]', '[.75]', '[0]']
-
-        # Problem is that we sting of args, not a list. We can join each element
-        # of the list together with a space between them using the join command
-        # This should now look like this:
-        #   "[1.23] [.75] [0]"
-        arg_str = ' '.join(args)
-
-        # That is just what we need for the args to pass with the sub call
-        # so return the value
-        return arg_str
+        args = {}
+        for line_edit in self.findChildren(QtWidgets.QLineEdit):
+            key = line_edit.objectName()
+            value = line_edit.text()
+            args[key] = value
+        return args
 
 
 if __name__ == '__main__':
