@@ -1,8 +1,8 @@
-# Sub Caller
+# TurboProbe
 
 Very minimal UI for calling subroutines in LinuxCNC
 
-![Sub Caller UI](sub_caller.png)
+![Sub Caller UI](tuboprobe.png)
 
 ## Configuring
 
@@ -18,7 +18,7 @@ SUBROUTINE_PATH = path/to/subroutines
 
 ### Configuring Sub caller
 
-In the `sub_caller.py` file you need to change the `SUBROUTINE_PATH` variable
+In the `tuboprobe.py` file you need to change the `SUBROUTINE_PATH` variable
 to point to the subroutine directory defined in your machines INI.
 
 
@@ -32,7 +32,7 @@ to point to the subroutine directory defined in your machines INI.
 Make sure LinuxCNC is running, and if you are running a RIP set up the environment.
 Then launch the sub caller UI:
 
-`python sub_caller.py`  
+`python tuboprobe.py`  
 
 
 Select the subroutine you want to call from the combobox and enter and args

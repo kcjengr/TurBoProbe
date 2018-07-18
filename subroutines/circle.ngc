@@ -1,3 +1,5 @@
+(#ARGS [{x_hint}] [{y_hint}] [{diameter_hint}])
+
 (Takes 3 required arguments:)
 (   Center X pos)
 (   Center Y pos)
