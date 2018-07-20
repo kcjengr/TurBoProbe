@@ -1,5 +1,0 @@
-o100 sub
-  G0 X[#1] Y[#2]
-  (MSG, in sub [#1])
-  G53 G0 X0 Y0 Z0 (rapid move to machine home)
-o100 endsub

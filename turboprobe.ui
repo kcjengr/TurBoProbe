@@ -226,7 +226,7 @@
          <item row="7" column="4">
           <widget class="QLineEdit" name="calibration_dia">
            <property name="text">
-            <string>0.7500</string>
+            <string>.0020</string>
            </property>
            <property name="alignment">
             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -276,7 +276,7 @@
          <item row="1" column="4">
           <widget class="QLineEdit" name="probe_slow_fr">
            <property name="text">
-            <string>0.0</string>
+            <string>5.0</string>
            </property>
            <property name="alignment">
             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>

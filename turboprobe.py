@@ -31,7 +31,7 @@ class SubCaller(QtWidgets.QMainWindow):
 
     def __init__(self):
         super(SubCaller, self).__init__()
-        uic.loadUi("tuboprobe.ui", self)
+        uic.loadUi("turboprobe.ui", self)
 
         for filename in os.listdir(SUBROUTINE_PATH):
             filename_and_ext = os.path.splitext(filename)
@@ -39,7 +39,6 @@ class SubCaller(QtWidgets.QMainWindow):
             self.subComboBox.addItem(filename, subname)
 
         self.callSubButton.clicked.connect(self.callSub)
-
 
     def callSub(self):
 
@@ -50,8 +49,8 @@ class SubCaller(QtWidgets.QMainWindow):
         arg_str = ''
         with open(filepath, 'r') as fh:
             line = fh.readline()
-            if line.startswith(';ARGS'):
-                args_format = line.strip(';ARGS').strip()
+            if line.startswith('(ARGS,'):
+                args_format = line.strip('(ARGS,').strip().strip(')')
 
                 args =  self.getArgs()
                 arg_str = args_format.format(**args)
@@ -80,9 +79,6 @@ class SubCaller(QtWidgets.QMainWindow):
             self.statusBar.setStyleSheet("QStatusBar{color:red}")
             self.statusBar.showMessage("ERROR: Probe move finished without making contact", msecs=5000)
 
-
-
-
     def onProbeSuccess(self):
         probed_pos = STAT.probed_position
 
@@ -98,7 +94,6 @@ class SubCaller(QtWidgets.QMainWindow):
             value = line_edit.text()
             args[key] = value
         return args
-
 
 if __name__ == '__main__':
     import sys
