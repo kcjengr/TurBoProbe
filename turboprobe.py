@@ -21,8 +21,10 @@ import linuxcnc # For commanding linuxcnc
 
 from PyQt5 import uic, QtWidgets
 
+PARENT_DIR = os.path.dirname(os.path.realpath(__file__))
+
 # Change this path to match [RS274NGC] SUBROUTINE_PATH given in the INI
-SUBROUTINE_PATH = 'subroutines'
+SUBROUTINE_PATH = os.path.join(PARENT_DIR, 'subroutines')
 
 CMD = linuxcnc.command()
 STAT = linuxcnc.stat()
@@ -31,7 +33,7 @@ class SubCaller(QtWidgets.QMainWindow):
 
     def __init__(self):
         super(SubCaller, self).__init__()
-        uic.loadUi("turboprobe.ui", self)
+        uic.loadUi(os.path.join(PARENT_DIR, "turboprobe.ui"), self)
 
         for filename in os.listdir(SUBROUTINE_PATH):
             filename_and_ext = os.path.splitext(filename)
