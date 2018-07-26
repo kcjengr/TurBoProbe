@@ -164,7 +164,7 @@
           </widget>
          </item>
          <item row="0" column="2">
-          <widget class="QLineEdit" name="probe_tool">
+          <widget class="QLineEdit" name="probe_tool_number">
            <property name="text">
             <string>99</string>
            </property>
@@ -579,7 +579,7 @@
   <widget class="QStatusBar" name="statusBar"/>
  </widget>
  <tabstops>
-  <tabstop>probe_tool</tabstop>
+  <tabstop>probe_tool_number</tabstop>
   <tabstop>step_off_width</tabstop>
   <tabstop>probe_fast_fr</tabstop>
   <tabstop>probe_slow_fr</tabstop>
