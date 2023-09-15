@@ -60,7 +60,7 @@ class SubCaller(QtWidgets.QMainWindow):
         cmd_str = "o<{}> call {}".format(subname, arg_str)
 
         # Print the command to the terminal so the user can see what is happening
-        print "Calling MDI command: ", cmd_str
+        print("Calling MDI command: ", cmd_str)
 
         self.statusBar.setStyleSheet("QStatusBar{color:black}")
         self.statusBar.showMessage("Probing ...")
@@ -71,7 +71,7 @@ class SubCaller(QtWidgets.QMainWindow):
         # Issue the MDI command to call the sub
         CMD.mdi(cmd_str)
         CMD.wait_complete(10000)
-        print 'Done'
+        print('Done')
         STAT.poll()
         if STAT.probe_tripped:
             self.statusBar.setStyleSheet("QStatusBar{color:green}")
@@ -86,7 +86,7 @@ class SubCaller(QtWidgets.QMainWindow):
 
         for anum, aletter in enumerate('xyz'):
             pos_str = "{:6.4f}".format(probed_pos[anum])
-            print "Probed {} pos: {}".format(aletter.upper(), pos_str)
+            print("Probed {} pos: {}".format(aletter.upper(), pos_str))
             getattr(self, '{}_probed_pos'.format(aletter)).setText(pos_str)
 
     def getArgs(self):
